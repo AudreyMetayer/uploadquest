@@ -14,6 +14,20 @@
     <input type="file" name="images[]" mutiple="multiple" />
     <button type="submit" value="Upload">Envoyer</button>
 </form>
+    
+    <?php $it = new FilesystemIterator(dirname(__FILE__) . '/uploads'); ?>
+    <figure>
+        <?php foreach ($it as $fileInfo) : ?>
+            <img src="/uploads/<?= $fileInfo->getFilename() ?>" alt="<?= $fileInfo->getFilename() ?>" width="300px" height="auto">
+            <figcaption>
+            <?= $fileInfo->getFilename() . "<br>"; ?>
+            </figcaption>
+            <form action="/delete.php" method="post">
+                <input type="hidden" value="<?= $fileInfo->getFilename(); ?>" name="deleteFile">
+                <button>Delete</button>
+            </form>
+        <?php endforeach; ?>
+    </figure>
 
 </body>
 </html>
